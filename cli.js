@@ -19,10 +19,9 @@ async function cli(prop, arg, dot) {
   const argv = dot.arg(prop, { alias: { r: ["require"] } })
 
   await prepareArgv(prop, argv, dot)
+  await dynamicRequire(prop, argv, dot)
 
   const paths = await resolvePathArg(prop, argv, dot)
-
-  await dynamicRequire(prop, argv, dot)
 
   await emitEvents.call(
     { argv: argv, paths: paths },
@@ -53,25 +52,24 @@ async function prepareArgv(prop, arg) {
 
   for (const key in config) {
     if (key === "require") {
-      arg.require = arg.require || []
       arg.require = config.require
         .map(path => join(configDir, path))
-        .concat(arg.require)
+        .concat(arg.require || [])
     } else {
       arg[key] = config[key]
     }
   }
 }
 
-function resolvePathArg(prop, arg, dot) {
+async function resolvePathArg(prop, arg, dot) {
   const pattern =
     arg._.length === 1
       ? arg._[0]
       : "{" + arg._.join(",") + "}"
 
   return arg._.length
-    ? dot.glob(prop, { pattern: pattern })
-    : Promise.resolve([process.cwd()])
+    ? await dot.glob(prop, { pattern: pattern })
+    : [process.cwd()]
 }
 
 function dynamicRequire(prop, arg, dot) {
@@ -87,7 +85,7 @@ function dynamicRequire(prop, arg, dot) {
 }
 
 function addDependencies(prop, arg, dot) {
-  const cwd = this.cwd
+  const { cwd } = this
 
   arg.forEach(req => {
     const paths = {
@@ -100,9 +98,7 @@ function addDependencies(prop, arg, dot) {
 }
 
 function tryRequire(prop, arg, dot) {
-  const p1 = arg.p1,
-    p2 = arg.p2
-
+  const { p1, p2 } = arg
   var lib
 
   try {
@@ -140,12 +136,11 @@ function addRequires(prop, arg, dot) {
 }
 
 function emitEvents(prop, arg, dot) {
-  const argv = this.argv,
-    eventId = this.argv.eventId,
-    paths = this.paths
+  const { argv, paths } = this
+  const { eventId } = argv
 
   return Promise.all(
-    paths.map(function(path) {
+    paths.map(path => {
       const args = Object.assign({}, arg, argv, {
           cli: true,
           cwd: path,
