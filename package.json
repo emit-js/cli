@@ -7,7 +7,7 @@
     "cli"
   ],
   "author": "dot-event <oss@dot-event.io>",
-  "main": "cli.js",
+  "main": "dist/cli.js",
   "bin": {
     "dot": "./dot"
   },
