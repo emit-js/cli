@@ -5,6 +5,8 @@ module.exports = dot => {
     return
   }
 
+  dot("logLevel", "cliEmit", { info: "debug" })
+
   dot.any("cliEmit", cliEmit)
 }
 

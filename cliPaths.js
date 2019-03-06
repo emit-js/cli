@@ -3,6 +3,8 @@ module.exports = dot => {
     return
   }
 
+  dot("logLevel", "cliPaths", { info: "debug" })
+
   dot.any("cliPaths", cliPaths)
 }
 
