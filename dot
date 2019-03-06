@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+var dot = require("dot-event")()
+
+require("@dot-event/log")(dot)
+require("@dot-event/arg")(dot)
+require("@dot-event/glob")(dot)
+require("./dist/cli")(dot)
+
+dot.cli().catch(console.error)
