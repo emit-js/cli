@@ -13,8 +13,8 @@ module.exports = dot => {
 }
 
 async function cliArgv(prop, arg, dot) {
-  const argv = dot.arg(prop)
-  const path = await findUp("dot.json")
+  const argv = dot.arg(prop),
+    path = await findUp("dot.json")
 
   var configDir, json
 
