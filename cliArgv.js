@@ -45,7 +45,15 @@ function configToArgs(prop, arg) {
   const { config, configDir, eventId } = arg
   const cwd = configDir || process.cwd()
 
-  var args = ["--cwd=" + cwd, "--eventId=" + eventId]
+  var args = []
+
+  if (!config.eventId) {
+    args = args.concat(["--eventId=" + eventId])
+  }
+
+  if (!config.cwd) {
+    args = args.concat(["--cwd=" + cwd])
+  }
 
   for (const key in config) {
     if (Array.isArray(config[key])) {
