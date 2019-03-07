@@ -37,7 +37,7 @@ async function cliArgv(prop, arg, dot) {
 
   return dot.arg(prop, {
     alias: { r: ["require"] },
-    args: process.argv.slice(2).concat(configArgs),
+    args: configArgs.concat(process.argv.slice(2)),
   })
 }
 
