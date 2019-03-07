@@ -1,6 +1,6 @@
 import findUp from "find-up"
 import { readJson } from "fs-extra"
-import { dirname, join } from "path"
+import { dirname } from "path"
 
 module.exports = dot => {
   if (dot.cliArgv) {
@@ -12,7 +12,8 @@ module.exports = dot => {
   dot.any("cliArgv", cliArgv)
 }
 
-async function cliArgv(prop, arg) {
+async function cliArgv(prop, arg, dot) {
+  const argv = dot.arg(prop)
   const path = await findUp("dot.json")
 
   var configDir, json
@@ -22,22 +23,39 @@ async function cliArgv(prop, arg) {
     json = await readJson(path)
   }
 
-  arg.eventId = arg._.shift()
-  arg.cwd = configDir || process.cwd()
+  const eventId = argv._.shift()
 
-  if (!json || !json[arg.eventId]) {
+  if (!json || !json[eventId]) {
     return
   }
 
-  const config = json[arg.eventId]
+  const configArgs = configToArgs(prop, {
+    config: json[eventId],
+    configDir,
+    eventId,
+  })
+
+  return dot.arg(prop, {
+    alias: { r: ["require"] },
+    args: process.argv.slice(2).concat(configArgs),
+  })
+}
+
+function configToArgs(prop, arg) {
+  const { config, configDir, eventId } = arg
+  const cwd = configDir || process.cwd()
+
+  var args = ["--cwd=" + cwd, "--eventId=" + eventId]
 
   for (const key in config) {
-    if (key === "require") {
-      arg.require = config.require
-        .map(path => join(configDir, path))
-        .concat(arg.require || [])
+    if (Array.isArray(config[key])) {
+      args = args.concat(
+        config[key].map(v => `--${key}=` + v)
+      )
     } else {
-      arg[key] = config[key]
+      args = args.concat([`--${key}=` + config[key]])
     }
   }
+
+  return args
 }

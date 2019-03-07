@@ -13,9 +13,7 @@ module.exports = dot => {
 }
 
 async function cli(prop, arg, dot) {
-  const argv = dot.arg(prop, { alias: { r: ["require"] } })
-
-  await dot.cliArgv(prop, argv)
+  const argv = await dot.cliArgv(prop, arg)
   await dot.cliRequire(prop, argv)
 
   const paths = await dot.cliPaths(prop, argv)

@@ -55,14 +55,12 @@ function tryRequire(prop, arg, dot) {
 }
 
 function addRequires(prop, arg, dot) {
-  arg.require = Array.isArray(arg.require)
+  const require = Array.isArray(arg.require)
     ? arg.require
     : [arg.require]
 
-  return arg.require.map(req => {
-    const abs = isAbsolute(req)
-      ? req
-      : join(arg.cwd, req, "package.json")
+  return require.map(req => {
+    const abs = isAbsolute(req) ? req : join(arg.cwd, req)
 
     const paths = {
       p1: abs,
