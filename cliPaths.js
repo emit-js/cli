@@ -14,7 +14,9 @@ async function cliPaths(prop, arg, dot) {
       ? "{" + arg._.slice(1).join(",") + "}"
       : arg._[1]
 
+  const opts = { absolute: true, pattern: pattern }
+
   return arg._.length > 1
-    ? await dot.glob(prop, { pattern: pattern })
+    ? await dot.glob(prop, opts)
     : [process.cwd()]
 }
