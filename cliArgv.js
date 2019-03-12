@@ -24,13 +24,10 @@ async function cliArgv(prop, arg, dot) {
   }
 
   const eventId = argv._.shift()
-
-  if (!json || !json[eventId]) {
-    return
-  }
+  const config = json && json[eventId] ? json[eventId] : {}
 
   const configArgs = configToArgs(prop, {
-    config: json[eventId],
+    config,
     configDir,
     eventId,
   })
