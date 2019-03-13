@@ -17,7 +17,7 @@ async function cli(prop, arg, dot) {
 
   for (const level of dot.state.log.levels) {
     if (argv[level]) {
-      dot("logLevel", level)
+      dot("logLevel", { arg: level })
     }
   }
 
