@@ -44,7 +44,7 @@ function cliEmit(prop, arg, dot) {
 function logOutput(prop, arg, dot) {
   if (arg) {
     dot("log", "warn", prop, {
-      message: arg ? arg.message || arg : arg,
+      message: arg ? arg.message || arg : "",
     })
   }
 }
