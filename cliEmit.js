@@ -24,11 +24,27 @@ function cliEmit(prop, arg, dot) {
         }),
         name = basename(path).replace(/\./g, "-")
 
-      return dot(
-        eventId,
-        args.prop || prop.concat([name]),
-        args
-      )
+      const p = args.prop || prop.concat([name])
+
+      const out = dot(eventId, p, args)
+
+      if (argv.output) {
+        if (out.then) {
+          out.then(out =>
+            dot("log", "warn", p, {
+              event: eventId + "Output",
+              message: out,
+            })
+          )
+        } else {
+          dot("log", "warn", p, {
+            event: eventId + "Output",
+            message: out,
+          })
+        }
+      }
+
+      return out
     })
   )
 }
