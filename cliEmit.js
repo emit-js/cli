@@ -30,21 +30,19 @@ function cliEmit(prop, arg, dot) {
 
       if (argv.output) {
         if (out.then) {
-          out.then(out =>
-            dot("log", "warn", p, {
-              event: eventId + "Output",
-              message: out,
-            })
-          )
+          out.then(out => logOutput(p, out, dot))
         } else {
-          dot("log", "warn", p, {
-            event: eventId + "Output",
-            message: out,
-          })
+          logOutput(p, out, dot)
         }
       }
 
       return out
     })
   )
+}
+
+function logOutput(prop, arg, dot) {
+  dot("log", "warn", prop, {
+    message: arg ? arg.message || arg : arg,
+  })
 }
