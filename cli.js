@@ -15,6 +15,12 @@ module.exports = dot => {
 async function cli(prop, arg, dot) {
   const argv = await dot.cliArgv(prop, arg)
 
+  for (const level of dot.state.log.levels) {
+    if (argv[level]) {
+      dot("logLevel", level)
+    }
+  }
+
   await dot.cliRequire(prop, argv)
 
   const paths = await dot.cliPaths(prop, argv)

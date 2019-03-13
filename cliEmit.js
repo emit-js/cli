@@ -28,7 +28,7 @@ function cliEmit(prop, arg, dot) {
 
       const out = dot(eventId, p, args)
 
-      if (argv.output) {
+      if (!argv.silent) {
         if (out.then) {
           out.then(out => logOutput(p, out, dot))
         } else {
