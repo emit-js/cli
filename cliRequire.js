@@ -31,7 +31,7 @@ function addDependencies(prop, arg, dot) {
       p2: req,
     }
 
-    tryRequire(prop, paths, dot)(dot)
+    tryRequire(prop, paths, dot)(dot, { cli: true })
   })
 }
 
@@ -67,6 +67,6 @@ function addRequires(prop, arg, dot) {
       p2: req,
     }
 
-    tryRequire(prop, paths, dot)(dot)
+    tryRequire(prop, paths, dot)(dot, { cli: true })
   })
 }

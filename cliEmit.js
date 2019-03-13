@@ -6,6 +6,7 @@ module.exports = dot => {
   }
 
   dot("logLevel", "cliEmit", { info: "debug" })
+  dot("logLevel", "cliEmitOutput", { info: "debug" })
 
   dot.any("cliEmit", cliEmit)
 }
@@ -28,12 +29,10 @@ function cliEmit(prop, arg, dot) {
 
       const out = dot(eventId, p, args)
 
-      if (!argv.silent) {
-        if (out.then) {
-          out.then(out => logOutput(p, out, dot))
-        } else {
-          logOutput(p, out, dot)
-        }
+      if (out.then) {
+        out.then(out => logOutput(p, out, dot))
+      } else {
+        logOutput(p, out, dot)
       }
 
       return out
@@ -43,7 +42,7 @@ function cliEmit(prop, arg, dot) {
 
 function logOutput(prop, arg, dot) {
   if (arg) {
-    dot("log", "warn", prop, "output", {
+    dot("cliEmitOutput", prop, {
       message: arg ? arg.message || arg : "",
     })
   }
