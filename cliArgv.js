@@ -13,7 +13,7 @@ module.exports = dot => {
 }
 
 async function cliArgv(prop, arg, dot) {
-  const argv = dot.arg(prop),
+  const argv = dot.argv(prop),
     path = await findUp("dot.json")
 
   var configDir, json
@@ -32,7 +32,7 @@ async function cliArgv(prop, arg, dot) {
     eventId,
   })
 
-  return dot.arg(prop, {
+  return dot.argv(prop, {
     alias: { r: ["require"] },
     args: configArgs.concat(process.argv.slice(2)),
   })
