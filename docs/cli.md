@@ -21,7 +21,7 @@
 
   - If found, merge event config into args
 
-- Find glob match `${path}/**/${eventId}.js`
+- Find glob matches for `${cwd}/**/${eventId}.js`
 
   - Ignore `**/node_modules/**`
   - Prioritize matches within `dist/`

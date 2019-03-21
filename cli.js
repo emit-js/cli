@@ -7,6 +7,10 @@ module.exports = dot => {
     return
   }
 
+  dot("docs", "cli", {
+    arg: join(__dirname, "../docs/cli.md"),
+  })
+
   dot.any("log", "error", () => process.exit(1))
   dot.any("cli", cli)
 }
@@ -72,7 +76,7 @@ async function cli(prop, arg, dot) {
 
   off()
 
-  dot(eventId, argv._, argv)
+  dot(eventId, argv.props, argv)
 }
 
 function addDependencies(prop, arg, dot) {
