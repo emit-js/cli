@@ -34,4 +34,9 @@
 
   - Require global package
 
+- Require dynamic dependencies as they are emitted
+
+  - First try to find dependency relative to event package
+  - Then try to find dependency from global packages
+
 - Emit event with prepared args

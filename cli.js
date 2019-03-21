@@ -79,10 +79,11 @@ function addDependencies(prop, arg, dot) {
   const { pkgDir } = this
 
   arg.forEach(dep => {
+    const relPath = join(pkgDir, "../../", dep)
     var lib
 
     try {
-      lib = require(join(pkgDir, "../../", dep))
+      lib = require(relPath)
     } catch (e) {
       lib = require(dep)
     }
@@ -93,7 +94,7 @@ function addDependencies(prop, arg, dot) {
       dot(
         "log",
         "error",
-        `could not find dependency ${dep}`
+        `could not find ${dep} from ${relPath} or from global packages`
       )
     }
   })
