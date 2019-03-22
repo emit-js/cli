@@ -22,7 +22,7 @@ async function cli(prop, arg, dot) {
     dot("logLevel", { arg: argv.log })
   }
 
-  const eventId = argv._.shift()
+  var eventId = argv._.shift()
 
   if (!eventId) {
     dot("log", "error", prop, "no eventId specified")
@@ -36,6 +36,8 @@ async function cli(prop, arg, dot) {
     const json = await readJson(configPath)
     Object.assign(argv, json[eventId])
   }
+
+  eventId = argv.eventId
 
   const pattern = `${process.cwd()}/**/${eventId}.js`
 
@@ -89,7 +91,11 @@ function addDependencies(prop, arg, dot) {
     try {
       lib = require(relPath)
     } catch (e) {
-      lib = require(dep)
+      try {
+        lib = require(dep)
+      } catch (e) {
+        null
+      }
     }
 
     if (lib) {
