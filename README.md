@@ -13,5 +13,5 @@ npm install dot-event @dot-event/cli
 ## Syntax
 
 ```bash
-dot EVENT [FILE, ...] [OPTIONS]
+dot EVENT [--props=""] [OPTIONS]
 ```
