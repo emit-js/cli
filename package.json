@@ -1,6 +1,6 @@
 {
   "name": "@dot-event/cli",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "dot-event cli",
   "keywords": [
     "dot-event",
@@ -30,7 +30,7 @@
     "@dot-event/args": "1.0.3",
     "@dot-event/argv": "3.0.1",
     "@dot-event/glob": "0.0.7",
-    "@dot-event/log": "1.0.32",
+    "@dot-event/log": "1.0.33",
     "dot-event": "3.2.1",
     "find-up": "3.0.0",
     "fs-extra": "7.0.1"
