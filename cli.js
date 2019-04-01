@@ -7,10 +7,6 @@ module.exports = dot => {
     return
   }
 
-  dot("docs", "cli", {
-    arg: join(__dirname, "../docs/cli.md"),
-  })
-
   dot.any("log", "error", () => process.exit(1))
   dot.any("cli", cli)
 }
