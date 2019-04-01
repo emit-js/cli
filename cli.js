@@ -37,9 +37,13 @@ async function cli(prop, arg, dot) {
     Object.assign(argv, json[eventId])
   }
 
+  const root = configPath
+    ? dirname(configPath)
+    : process.cwd()
+
   eventId = argv.eventId
 
-  const pattern = `${process.cwd()}/**/${eventId}.js`
+  const pattern = `${root}/**/${eventId}.js`
 
   const paths = await dot.glob({
     ignore: "**/node_modules/**",
