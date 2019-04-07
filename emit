@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+var emit = require("@emit-js/emit")()
+
+require("@emit-js/log")(emit)
+require("@emit-js/args")(emit)
+require("@emit-js/argv")(emit)
+require("@emit-js/glob")(emit)
+require("./dist/cli")(emit)
+
+emit.cli().catch(console.error)

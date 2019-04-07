@@ -2,31 +2,31 @@ import findUp from "find-up"
 import { readJson } from "fs-extra"
 import { dirname, join } from "path"
 
-module.exports = dot => {
-  if (dot.cli) {
+module.exports = emit => {
+  if (emit.cli) {
     return
   }
 
-  dot.any("log", "error", () => process.exit(1))
-  dot.any("cli", cli)
+  emit.any("log", "error", () => process.exit(1))
+  emit.any("cli", cli)
 }
 
-async function cli(prop, arg, dot) {
-  const argv = await dot.argv(prop)
+async function cli(arg, prop, emit) {
+  const argv = await emit.argv(prop)
 
   if (argv.log) {
-    dot("logLevel", { arg: argv.log })
+    emit("logLevel", argv.log)
   }
 
   var eventId = argv._.shift()
 
   if (!eventId) {
-    dot("log", "error", prop, "no eventId specified")
+    emit("log", "error", prop, "no eventId specified")
   }
 
   argv.eventId = eventId
 
-  const configPath = await findUp("dot.json")
+  const configPath = await findUp("emit.json")
 
   if (configPath) {
     const json = await readJson(configPath)
@@ -41,7 +41,7 @@ async function cli(prop, arg, dot) {
 
   const pattern = `${root}/**/${eventId}.js`
 
-  const paths = await dot.glob({
+  const paths = await emit.glob({
     ignore: "**/node_modules/**",
     pattern,
   })
@@ -55,7 +55,7 @@ async function cli(prop, arg, dot) {
   }
 
   if (!path) {
-    dot(
+    emit(
       "log",
       "error",
       prop,
@@ -69,19 +69,19 @@ async function cli(prop, arg, dot) {
 
   const pkgDir = dirname(pkgPath)
 
-  const off = dot.any(
+  const off = emit.any(
     "dependencies",
     addDependencies.bind({ pkgDir })
   )
 
-  require(path)(dot)
+  require(path)(emit)
 
   off()
 
-  dot(eventId, argv.props, argv)
+  emit(eventId, argv.props, argv)
 }
 
-function addDependencies(prop, arg, dot) {
+function addDependencies(arg, prop, emit) {
   const { pkgDir } = this
 
   arg.forEach(dep => {
@@ -99,9 +99,9 @@ function addDependencies(prop, arg, dot) {
     }
 
     if (lib) {
-      lib(dot)
+      lib(emit)
     } else {
-      dot(
+      emit(
         "log",
         "error",
         `could not find ${dep} from ${relPath} or from global packages`

@@ -1,17 +1,17 @@
-# @dot-event/cli
+# @emit-js/cli
 
-dot-event cli
+emit cli
 
 ![cli](cli.gif)
 
 ## Install
 
 ```bash
-npm install dot-event @dot-event/cli
+npm install @emit-js/emit @emit-js/cli
 ```
 
 ## Syntax
 
 ```bash
-dot EVENT [--props=""] [OPTIONS]
+emit EVENT [--props=""] [OPTIONS]
 ```

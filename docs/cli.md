@@ -17,7 +17,7 @@
 - Parse CLI arguments from `process.argv`
 - Set `eventId` from first non-option argument
 
-- Use `find-up` to look for `dot.json`
+- Use `find-up` to look for `emit.json`
 
   - If found, merge event config into args
 
