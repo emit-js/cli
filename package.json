@@ -3,7 +3,7 @@
   "version": "0.0.26",
   "description": "emit cli",
   "keywords": [
-    "@emit-js/emit",
+    "emit",
     "cli"
   ],
   "author": "emit <emit@emit-js.com>",
