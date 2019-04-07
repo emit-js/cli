@@ -1,6 +1,6 @@
 {
   "name": "@emit-js/cli",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "emit cli",
   "keywords": [
     "emit",
@@ -27,11 +27,11 @@
   },
   "dependencies": {
     "@babel/runtime": "7.4.3",
-    "@emit-js/args": "1.0.4",
-    "@emit-js/argv": "3.0.2",
-    "@emit-js/glob": "0.0.9",
-    "@emit-js/log": "1.0.38",
-    "@emit-js/emit": "3.2.8",
+    "@emit-js/args": "1.0.5",
+    "@emit-js/argv": "3.0.3",
+    "@emit-js/glob": "0.0.10",
+    "@emit-js/log": "1.0.39",
+    "@emit-js/emit": "3.2.9",
     "find-up": "3.0.0",
     "fs-extra": "7.0.1"
   },
