@@ -6,7 +6,7 @@
     "@emit-js/emit",
     "cli"
   ],
-  "author": "emit <oss@emit-js.com>",
+  "author": "emit <emit@emit-js.com>",
   "main": "dist/cli.js",
   "bin": {
     "emit": "./emit"
