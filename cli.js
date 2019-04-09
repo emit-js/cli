@@ -78,7 +78,7 @@ async function cli(arg, prop, emit) {
 
   off()
 
-  emit(eventId, argv.props, argv)
+  emit(eventId.replace(/@[^/]+\//, ""), argv.props, argv)
 }
 
 function addDependencies(arg, prop, emit) {
